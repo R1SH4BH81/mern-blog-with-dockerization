@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  backend:
+    build: ./server                # Dockerfile location
+    container_name: mern_blog_backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"               # Host:Container
+    env_file:
+      - ./server/.env             # Load env variables
+    depends_on:
+      - mongo
+    volumes:
+      - ./server:/app             # Live code update in dev
+    networks:
+      - mern-network
+
+  mongo:
+    image: mongo:7
+    container_name: mern_blog_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db       # Persist MongoDB data
+    networks:
+      - mern-network
+
+volumes:
+  mongo-data:
+
+networks:
+  mern-network:
+
+
+
+# docker-compose up --build    # Build and start all services
+# docker-compose down          # Stop and remove containers
+# docker-compose logs -f       # View logs

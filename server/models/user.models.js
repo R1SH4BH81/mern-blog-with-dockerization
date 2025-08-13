@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const userSchema = new mongoose.Schema(
   {
     username: {
@@ -7,13 +6,11 @@ const userSchema = new mongoose.Schema(
       required: [true, "username is required"],
       trim: true,
     },
-
     password: {
       type: String,
-      minlenght: [6, "min 6 characters"],
-      required: [true, "password is required  "],
+      minlength: [6, "minimum 6 characters required"],
+      required: [true, "password is required"],
     },
-
     email: {
       type: String,
       trim: true,
@@ -24,4 +21,4 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = new mongoose.model("user", userSchema);
+module.exports = mongoose.model("User", userSchema);

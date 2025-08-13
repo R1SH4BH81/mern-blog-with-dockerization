@@ -16,7 +16,14 @@ const register = async (req, res) => {
     const hashPass = await bcrypt.hash(password, 10);
     const newUser = new User({ email, password: hashPass, username });
     await newUser.save();
-    res.status(200).json({ message: "user is created" });
+    res.status(201).json({
+      message: "User created successfully",
+      user: {
+        id: newUser._id,
+        email: newUser.email,
+        username: newUser.username,
+      },
+    });
   } catch (err) {
     return res.status(500).json({ message: "Server Error" });
   }
@@ -42,7 +49,7 @@ const login = async (req, res) => {
     res.json({
       message: "Login successful",
       token,
-      user: { id: isUser._id, name: isUser.name, email: isUser.email },
+      user: { id: isUser._id, username: isUser.username, email: isUser.email },
     });
   } catch (err) {
     return res.status(500).json({ message: "Server Error" });

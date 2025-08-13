@@ -13,9 +13,7 @@ const createBlog = async (req, res) => {
 
 const getAllBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find()
-      .populate("author", "name email")
-      .sort({ createdAt: -1 });
+    const blogs = await Blog.find().sort({ createdAt: -1 });
     res.status(200).json(blogs);
   } catch (err) {
     res.status(500).json({ message: "Server Error" });
@@ -24,10 +22,7 @@ const getAllBlogs = async (req, res) => {
 
 const getLatestBlog = async (req, res) => {
   try {
-    const blogs = await Blog.find()
-      .populate("author", "name email")
-      .sort({ createdAt: -1 })
-      .limit(6);
+    const blogs = await Blog.find().sort({ createdAt: -1 }).limit(6);
     res.status(200).json(blogs);
   } catch (err) {
     res.status(500).json({ message: "Server Error" });
@@ -36,9 +31,9 @@ const getLatestBlog = async (req, res) => {
 
 const getAuthorBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find({ author: req.user.id })
-      .populate("author", "name email")
-      .sort({ createdAt: -1 });
+    const blogs = await Blog.find({ author: req.user.id }).sort({
+      createdAt: -1,
+    });
     res.status(200).json(blogs);
   } catch (err) {
     res.status(500).json({ message: "Server Error" });

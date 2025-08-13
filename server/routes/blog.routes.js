@@ -1,20 +1,20 @@
-import express from "express";
-import {
+const express = require("express");
+const {
   createBlog,
   getAllBlogs,
-  getLatestBlogs,
+  getLatestBlog,
   getAuthorBlogs,
   updateBlog,
   deleteBlog,
-} from "../controllers/blog.controllers.js";
+} = require("../controllers/blog.controllers.js");
 
-import { protect } from "../middlewares/authmiddleware.js";
+const protect = require("../middlewares/authmiddleware.js");
 
 const router = express.Router();
 
 // Public routes
 router.get("/", getAllBlogs);
-router.get("/latest", getLatestBlogs);
+router.get("/latest", getLatestBlog);
 
 // Protected routes
 router.post("/", protect, createBlog);
@@ -22,4 +22,4 @@ router.get("/dashboard", protect, getAuthorBlogs);
 router.put("/:id", protect, updateBlog);
 router.delete("/:id", protect, deleteBlog);
 
-export default router;
+module.exports = router;

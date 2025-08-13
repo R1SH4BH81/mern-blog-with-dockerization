@@ -1,7 +1,7 @@
-import jwt from "jsonwebtoken";
-import User from "../models/user.models";
+const jwt = require("jsonwebtoken");
+const User = require("../models/user.models");
 
-export const protect = async (req, res, next) => {
+const protect = async (req, res, next) => {
   let token;
 
   // Check for token in Authorization header
@@ -35,4 +35,5 @@ export const protect = async (req, res, next) => {
   }
 };
 
+module.exports = protect;
 //just copy paste from chatgpt didnt wrote it :>

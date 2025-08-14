@@ -63,3 +63,8 @@ If a worker dies, it's automatically restarted
 
 npm start -> Start in production mode
 
+## Pull Image
+```bash
+docker pull rishxbh81/test-node:latest
+```
+
